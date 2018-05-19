@@ -7,7 +7,7 @@
 #include "opencv2/core/version.hpp"
 #include "misc.h"
 
-void draw_boxes(cv::Mat mat_img, std::vector<bbox_t> result_vec, std::vector<std::string> obj_names, unsigned int wait_msec , bool dont_show) {
+void draw_boxes(cv::Mat mat_img, std::vector<bbox_t>& result_vec, std::vector<std::string> obj_names, unsigned int wait_msec , bool dont_show) {
 	for (auto &i : result_vec) {
 		cv::Scalar color = obj_id_to_color(i.obj_id);
 		cv::rectangle(mat_img, cv::Rect(i.x, i.y, i.w, i.h), color, 3);
