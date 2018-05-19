@@ -1,0 +1,9 @@
+﻿  image_detector.cpp
+c:\users\mjo97\onedrive - 홍익대학교\apl\yolov3\yolo_wrapper\yolo_v2_class.hpp(48): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\mjo97\onedrive - 홍익대학교\apl\yolov3\yolo_wrapper\yolo_v2_class.hpp(70): warning C4244: '*=': conversion from 'float' to 'unsigned int', possible loss of data
+  Generating code
+  0 of 244 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Image_Detector.vcxproj -> C:\Users\mjo97\OneDrive - 홍익대학교\APL\YOLOv3\YOLO_Wrapper\x64\Release\Image_Detector.exe

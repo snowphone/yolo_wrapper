@@ -1,0 +1,7 @@
+﻿  sports_analyser.cpp
+c:\users\mjo97\onedrive - 홍익대학교\apl\yolov3\yolo_wrapper\yolo_v2_class.hpp(48): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\mjo97\onedrive - 홍익대학교\apl\yolov3\yolo_wrapper\yolo_v2_class.hpp(70): warning C4244: '*=': conversion from 'float' to 'unsigned int', possible loss of data
+  Generating code
+  All 70 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  Sports_Network.vcxproj -> C:\Users\mjo97\OneDrive - 홍익대학교\APL\YOLOv3\YOLO_Wrapper\x64\Release\Sports_Network.exe
