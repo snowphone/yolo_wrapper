@@ -147,7 +147,7 @@ string get_new_name(const string& image_name, const string& weight_filename)
     if(image_name.find(".jpg") != string::npos)
         extension = ".jpg";
     else
-        extension = ".avi";
+        extension = ".mkv";
 
 	return basename + "_" + get_epoch(weight_filename) + "_" + extension;
 }

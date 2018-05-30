@@ -22,12 +22,11 @@ int main(int argc, const char* argv[])
 	const char* weight_filename = find_option(argc, argv, "-weight", nullptr);
 	const char* data_filename = find_option(argc, argv, "-data", nullptr);
 	const char* cfg_filename = find_option(argc, argv, "-cfg", nullptr);
-	bool bStore = (bool)find(argc, argv, "-store", nullptr);
-	bool bDont_show = (bool)find(argc, argv, "-dont_show", nullptr);
+	bool bStore = (bool)find(argc, argv, "-store", "true");
 
 	if (!image_list || !weight_filename || !data_filename || !cfg_filename)
 	{
-		throw runtime_error("invalid input");
+		throw runtime_error(string("Usage: ") + argv[0] + " -data <data> -cfg <cfg> -weight <weight> -image <image folder>");
 	}
 
     vector<string> image_names = get_image_list(image_list);
@@ -43,12 +42,12 @@ int main(int argc, const char* argv[])
 		box_counter += b_boxes.size();
 		cv::Mat image = load_Mat(image_name);
 
-        draw_boxes(image, b_boxes, objects_names_from_file(data.names), 0, bDont_show);
+        draw_boxes(image, b_boxes, objects_names_from_file(data.names), 0, true);
         
 		if (bStore)
 		{
 			string name = get_new_name(image_name, weight_filename);
-            cout << name << endl;
+            cout << name  << ",\t box: " << b_boxes.size() << endl;
 			cv::imwrite(name, image);
 		}
     }

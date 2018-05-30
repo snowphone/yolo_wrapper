@@ -1,3 +1,8 @@
+/*
+ * TODO: 5304 프레임 이후에 Image is Empty runtime error가 발생.
+ * 		 opencv에서 제공하는 보간법 이용한 트랙킹 사용했을 때 한계 발생.
+ * 		 패스 관계 네트워크로 뽑는 코드 작성
+ */
 #include <algorithm>
 #include <cassert>
 #include <iostream>
@@ -51,18 +56,22 @@ int main(int argc, const char* argv[])
     cv::Mat frame;
     float fps = capture.get(cv::CAP_PROP_FPS);
 
-    auto codec = CV_FOURCC('M', 'P', '4', 'V');
+    auto codec = CV_FOURCC('M', 'P', 'E', 'G');
 
-    cv::VideoWriter writer(new_name , codec, 30, size, true);
-    cout << " writer ready" << capture.isOpened() << endl;
+    cv::VideoWriter writer(new_name , codec, fps, size, true);
+    cout << " writer ready" << endl;
 
-    while(capture >> frame, capture.isOpened())
+	size_t cnt=0;
+
+    while(capture.isOpened())
     {
+		capture >> frame;
         vector<bbox_t> result_vec = detector.detect(frame, thresh);
-        result_vec = detector.tracking_id(result_vec);
-        draw_boxes(frame, result_vec, names, 0, true);
-        cout << "frame NO. " << result_vec[0].frames_counter << endl;
+		result_vec = detector.tracking_id(result_vec);
+		draw_boxes(frame, result_vec, names, 0, true);
+        cout << "frame NO. " << ++cnt << '\n';
 
         writer << frame;
     }
+	writer.release();
 }
