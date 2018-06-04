@@ -53,8 +53,22 @@ cv::Mat image_t_to_mat(const image_t & img)
 	return mat;
 }
 
+static std::string get_folder(std::string path)
+{
+	if(path.back() == '/')
+		return path;
+	string::size_type index = path.rfind("/");
+	return path.substr(0, index + 1);
+}
+static std::string get_filename(std::string path)
+{
+	string::size_type index = path.rfind("/");
+	return path.substr(index + 1);
+}
+
 Data read_data(const char * data_filename)
 {
+	std::string folder = get_folder(data_filename);
 	Data data;
 	std::ifstream in(data_filename);
 	while (in)
@@ -75,19 +89,19 @@ Data read_data(const char * data_filename)
 		}
 		else if (option.find("train") != std::string::npos)
 		{
-			data.train = payload;
+			data.train = folder + get_filename(payload);
 		}
 		else if (option.find("valid") != std::string::npos)
 		{
-			data.valid = payload;
+			data.valid = folder + get_filename(payload);
 		}
 		else if (option.find("names") != std::string::npos)
 		{
-			data.names = payload;
+			data.names = folder + get_filename(payload);
 		}
 		else if (option.find("backup") != std::string::npos)
 		{
-			data.backup = payload;
+			data.backup = folder + get_filename(payload);
 		}
 	}
 	return data;
@@ -103,10 +117,12 @@ void show_result(std::vector<bbox_t> const result_vec, std::vector<std::string> 
 	}
 }
 
-std::vector<std::string> objects_names_from_file(std::string const filename) {
+std::vector<std::string> objects_names_from_file(const std::string filename) {
 	std::ifstream file(filename);
 	std::vector<std::string> file_lines;
-	if (!file.is_open()) return file_lines;
+	if (!file.is_open()) 
+		throw std::runtime_error("Failed to load " + filename);
+
 	for (std::string line; file >> line;) file_lines.push_back(line);
 	std::cout << "object names loaded \n";
 	return file_lines;
